@@ -28,4 +28,8 @@ inform the user.
 - If a user completes the game, print an appropriate message on the output displaying
 their rank.
 
-Evaluation Criteria
+## How to run
+- Clone repository
+- Open console and go to the cloned path
+- Run `ruby driver.rb`
+- Provide necessary inputs
