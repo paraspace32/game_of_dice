@@ -39,6 +39,7 @@ class GameOfDice
       next if won?(player)
 
       init_turn(player)
+      puts ''
       assign_rank(player) if won?(player) && player.rank > total_players
       result_and_score
     end
@@ -51,6 +52,8 @@ class GameOfDice
 
   def result_and_score
     leaderboard.create_tally(players, current_standing)
+    puts '----------------------------------'
+    puts ''
   end
 
   def init_turn(player)
