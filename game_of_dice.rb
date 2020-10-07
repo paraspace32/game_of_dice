@@ -2,16 +2,18 @@
 
 require './player'
 require './dice'
+require './leaderboard'
 
 # This class simulates game of dice
 class GameOfDice
-  attr_reader :players, :winning_points, :dice, :current_standing
+  attr_reader :players, :winning_points, :dice, :current_standing, :leaderboard
 
   def initialize(total_players = 0, winning_points = 0)
     @players = Array.new(total_players.to_i) { |i| Player.new(i + 1) }
     @winning_points = winning_points.to_i
     @dice = Dice.new
     @current_standing = 1
+    @leaderboard = Leaderboard.new
   end
 
   def simulate
@@ -43,24 +45,12 @@ class GameOfDice
   end
 
   def assign_rank(player)
-    player.rank = current_standing
+    leaderboard.assign_rank(player, current_standing)
     @current_standing += 1
-    puts "#{player.name} won with rank: #{player.rank}"
   end
 
   def result_and_score
-    data = players.sort_by { |p| [p.rank, -p.points] }
-    previous_rank = current_standing - 1
-    puts 'Current tally'
-    data.each do |player|
-      current_rank = if player.rank > players.count
-                       previous_rank + 1
-                     else
-                       player.rank
-                     end
-      previous_rank = current_rank
-      puts "Player: #{player.name} Point: #{player.points} Rank: #{current_rank}"
-    end
+    leaderboard.create_tally(players, current_standing)
   end
 
   def init_turn(player)
