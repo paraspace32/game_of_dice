@@ -20,5 +20,6 @@ class Leaderboard
   def assign_rank(player, current_standing)
     player.rank = current_standing
     puts "#{player.name} won with rank: #{player.rank}"
+    puts ''
   end
 end
